@@ -14,6 +14,9 @@ CylinderGammaDistribution::CylinderGammaDistribution(unsigned num_cyl, double a,
     min_limits = min_l;
     max_limits = max_l;
     cylinders.clear();
+
+    // HERE SIDSEL HERE!!!!!!
+    min_sampled_radius = 0e-3;
 }
 
 void CylinderGammaDistribution::computeMinimalSize(std::vector<double> radiis, double icvf_,Eigen::Vector3d& l){
@@ -80,8 +83,15 @@ void CylinderGammaDistribution::createGammaSubstrate()
     std::vector<double> radiis(num_cylinders,0);
 
     bool achieved = false;
-    for (unsigned i=0; i< num_cylinders; ++i) {
-        radiis[i] = distribution(generator)*1e-3;
+    for (int i=0; i< num_cylinders; ++i) {
+
+        float sampled_radius =  distribution(generator)*1e-3;
+
+        if(sampled_radius <= min_sampled_radius){
+            continue;
+            i--;
+        }
+        radiis[i] = sampled_radius;
     }
 
     // using a lambda function:

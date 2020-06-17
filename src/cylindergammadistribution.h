@@ -29,6 +29,9 @@ public:
     Eigen::Vector3d min_limits;                     /*!< voxel min limits (if any) (bottom left corner)                             */
     Eigen::Vector3d max_limits;                     /*!< voxel max limits (if any)                                                  */
     std::vector<Cylinder> cylinders;                /*!< Cylinder vector                                                            */
+    float min_sampled_radius;                       /*!< Minimum radii to queue                                                     */
+
+
 
     /*!
      *  \param P_ Cylinder origin
